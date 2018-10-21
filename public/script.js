@@ -8,6 +8,10 @@ var amenagetArr = []; // Nicolas Flamel (philosopher's stone)
 var goldArr = [];
 var floresiensisArr = [];
 var godArr = [];
+
+var seconds = 0;
+var demotime = 0;
+var season = 0; // 0 = summer, 1 = winter;
 // matrix[15][20] = 4;
 // matrix[15][21] = 4;
 // matrix[15][19] = 4;
@@ -149,15 +153,18 @@ function draw() {
                 fill("#acacac");
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 1) {
-                fill("green");
+            else if (matrix[y][x] == 1) { // grass
+                if(season = 0){
+                    fill("white");
+                }
+                else fill("green");
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 2) {
+            else if (matrix[y][x] == 2) { // Grasseater
                 fill("#DDB77B");
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 3) {
+            else if (matrix[y][x] == 3) { // Gishadich
                 fill("#8B0000");
                 rect(x * side, y * side, side, side);
             }
@@ -165,7 +172,7 @@ function draw() {
                 fill("#FF4500");
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 5) {
+            else if (matrix[y][x] == 5) { // Philosopher
                 fill("#FF00FF");
                 rect(x * side, y * side, side, side);
             }
@@ -209,6 +216,28 @@ function draw() {
     //        quickSandArr[i].mojo();
     //     // console.log(quickSandArr.length);
     // }
+    demotime += 1;
+    if (demotime >= 60/frameCount){
+        demotime = 0;
+        seconds++; 
+    }
+
+    if (seconds <=7){   ///////////////////////////////////////////////////////////////////////
+        textSize(32);
+        fill(0, 102, 153);
+        text('summer', 10, 30);
+    }
+    else if(seconds <=15){
+        textSize(32);
+        fill(0, 102, 153);
+        text('winter', 10, 30);
+        season = 1;
+    }
+    else {
+        seconds = 0;
+        season = 0;
+    };
+    
 }
 //this.getNewCoordinates();
 // Homo floresiensis
