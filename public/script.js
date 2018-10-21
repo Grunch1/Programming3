@@ -183,7 +183,7 @@ function draw() {
             }
             else if (matrix[y][x] == 1) { // grass
                 if(season == 0) {fill("green");}
-                else fill(0, 158, 96);
+                else fill(0, 148, 76);
 
                 rect(x * side, y * side, side, side);
             }
