@@ -146,7 +146,7 @@ function setup() {
 }
 
 function draw() {
-    // time
+    // date & time
     demotime += 1;
 
     if (demotime >= frameRate()){
@@ -154,7 +154,7 @@ function draw() {
         seconds++; 
     }
 
-    if (seconds <=15){   //////// season change time
+    if (seconds <=15){   //////// people change, seasons also change
         textSize(32);
         fill(0, 102, 153);
         text('summer', 10, 30);
@@ -182,8 +182,8 @@ function draw() {
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 1) { // grass
-                if(season == 0) {fill(0, 158, 96);}
-                else fill("green");
+                if(season == 0) {fill("green");}
+                else fill(0, 158, 96);
 
                 rect(x * side, y * side, side, side);
             }
@@ -217,6 +217,7 @@ function draw() {
             }
         }
     }
+    // Do
     for (var i in grassArr) {
         grassArr[i].mul();
     }
