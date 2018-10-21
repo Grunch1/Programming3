@@ -146,18 +146,45 @@ function setup() {
 }
 
 function draw() {
+    // time
+    demotime += 1;
+
+    if (demotime >= frameRate()){
+        demotime = 0;
+        seconds++; 
+    }
+
+    if (seconds <=15){   //////// season change time
+        textSize(32);
+        fill(0, 102, 153);
+        text('summer', 10, 30);
+        // season = 0;
+    }
+    else if(seconds <=30){
+        textSize(32);
+        fill(0, 102, 153);
+        text('winter', 10, 30);
+        season = 1;
+    }
+    else {
+        seconds = 0;
+        season = 0;
+    }
+
+    // Drawing ))
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
             if (matrix[y][x] == 0) {
+                // if(season == 0) {fill("#acacac");} else
                 fill("#acacac");
+
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 1) { // grass
-                if(season = 0){
-                    fill("white");
-                }
+                if(season == 0) {fill(0, 158, 96);}
                 else fill("green");
+
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 2) { // Grasseater
@@ -216,27 +243,7 @@ function draw() {
     //        quickSandArr[i].mojo();
     //     // console.log(quickSandArr.length);
     // }
-    demotime += 1;
-    if (demotime >= 60/frameCount){
-        demotime = 0;
-        seconds++; 
-    }
 
-    if (seconds <=7){   ///////////////////////////////////////////////////////////////////////
-        textSize(32);
-        fill(0, 102, 153);
-        text('summer', 10, 30);
-    }
-    else if(seconds <=15){
-        textSize(32);
-        fill(0, 102, 153);
-        text('winter', 10, 30);
-        season = 1;
-    }
-    else {
-        seconds = 0;
-        season = 0;
-    };
     
 }
 //this.getNewCoordinates();
