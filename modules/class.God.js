@@ -1,4 +1,4 @@
-class God {
+module.exports = class God {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
