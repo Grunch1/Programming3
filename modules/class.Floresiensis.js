@@ -1,8 +1,7 @@
-class floresiensis {
+var Venom = require("./Parent");
+module.exports = class floresiensis extends Venom {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+        super(x, y, index);
         this.multiply = 0;
         this.hinVandak = 0;
         this.energy = 25;

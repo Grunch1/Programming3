@@ -1,8 +1,7 @@
-class Gold {
+var Venom = require("./Parent");
+module.exports = class Gold extends Venom {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+        super(x, y, index);
         this.hinVandak = 0;
         this.energy = 1;
     }

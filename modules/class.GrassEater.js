@@ -1,11 +1,14 @@
-class GrassEater {
+var Venom = require("./Parent");
+module.exports = class GrassEater extends Venom {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+        super(x, y, index);
+        this.ser = 0;
         this.multiply = 0;
         this.energy = 8;
+        if (Math.random() >= 0.5) this.ser = 1;
     }
+
+    
     mul() {
         this.multiply++;
         var newCell1 = this.chooseCell(0);

@@ -1,8 +1,7 @@
-module.exports = class God {
+var Venom = require("./Parent");
+module.exports = class God extends Venom {
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+        super(x, y, index);
     }
 
     chooseCell(character0) {
