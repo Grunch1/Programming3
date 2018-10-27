@@ -11,6 +11,7 @@ var God = require('./modules/class.God.js');
 var Gold = require('./modules/class.Gold.js');
 var Grass = require('./modules/class.grass.js');
 var GrassEater = require('./modules/class.GrassEater.js');
+var Event = require('./modules/Event.js');
 var Venom = require('./modules/Parent.js');
 
 var grassArr = [];
@@ -21,6 +22,7 @@ var amenagetArr = []; // Nicolas Flamel (phil's stone)
 var goldArr = [];
 var floresiensisArr = [];
 var godArr = [];
+var eventArr = [];
 
 for (var y = 0; y < matrix.length; ++y) {
   for (var x = 0; x < matrix[y].length; ++x) {
@@ -55,6 +57,10 @@ for (var y = 0; y < matrix.length; ++y) {
     else if (matrix[y][x] == 8) {
       var God = new Gold(x, y, 8);
       godArr.push(God);
+    }
+    else if (matrix[y][x] == 9) {
+      var evnt = new Event(x, y, 9);
+      eventArr.push(evnt);
     }
   }
 }
