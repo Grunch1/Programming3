@@ -1,7 +1,7 @@
 var side = 16;
 var socket;
 var matrix;
-socket.on ("season", season);
+
 
 function setup() 
 {
@@ -9,6 +9,7 @@ function setup()
     socket = io.connect();
 
     socket.on('get matrix', function(mtx){
+        socket.on ("season", season);
         noLoop();
         matrix = mtx;
         createCanvas(matrix.length * side, matrix[0].length * side);
@@ -56,7 +57,7 @@ function draw()
                 fill("#FF4500");
                 rect(x * side, y * side, side, side);
             }
-            else if (matrix[y][x] == 5) { // Philosopher
+            else if (matrix[y][x] == 5) { // Phi    losopher
                 fill("#FF00FF");
                 rect(x * side, y * side, side, side);
             }

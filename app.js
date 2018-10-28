@@ -2,7 +2,8 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-socket.emit("season", season)
+
+
 
 var matrix = require('./modules/matrix');
 var Amenaget = require('./modules/class.Amenaget.js');
@@ -77,9 +78,12 @@ var frameRate = 5;
 var drawTime = 1000 / frameRate;
 var frameCount = 0;
 var seconds = 0;
+var season = 0;
 
 io.on('connection', function (socket) {
   socket.emit('get matrix', matrix);
+
+  socket.emit("get season", season);
 
   var interval = setInterval(function () {
     frameCount++;
