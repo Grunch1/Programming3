@@ -31,11 +31,11 @@ module.exports = class God extends Venom {
         ];
     }
     move() {
-        var newCell1 = this.chooseCell(0);
-        var newCell2 = this.chooseCell(1);
-        var newCell3 = newCell2.concat(this.chooseCell(6));
+        var newCell1 = this.chooseCell(0, matrix);
+        var newCell2 = this.chooseCell(1, matrix);
+        var newCell3 = newCell2.concat(this.chooseCell(6, matrix));
         var arrayall = newCell1.concat(newCell3);
-        var cord = random(arrayall);
+        var cord = this.random(arrayall);
 
         if (cord) {
             var x = cord[0];

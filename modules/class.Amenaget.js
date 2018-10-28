@@ -1,12 +1,13 @@
 var Venom = require("./Parent");
-module.exports = class Amenaget extends Venom  {
+var Gold = require("./class.Gold");
+module.exports = class Amenaget extends Venom {
     constructor(x, y, index) {
         super(x, y, index);
         this.multiply = 0;
         this.hinVandak = 0;
         this.too = 0;
     }
-    chooseNCell(character) {
+    chooseNCell(character, matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.directions) {
@@ -20,7 +21,7 @@ module.exports = class Amenaget extends Venom  {
         }
         return found;
     }
-        
+
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
@@ -33,12 +34,12 @@ module.exports = class Amenaget extends Venom  {
             [this.x + 1, this.y + 1]
         ];
     }
-    move() {
-        var goCells1 = this.chooseCell(0);
-        var goCells2 = this.chooseCell(1);
-        var goCells3 = goCells2.concat(this.chooseCell(6));
+    move(grassArr, EaterArr, GishatichArr, amenagetArr, matrix) {
+        var goCells1 = this.chooseCell(0, matrix);
+        var goCells2 = this.chooseCell(1, matrix);
+        var goCells3 = goCells2.concat(this.chooseCell(6, matrix));
         var cords = goCells1.concat(goCells3);
-        var cord = random(cords);
+        var cord = this.random(cords);
 
         if (cord) {
             var x = cord[0];
@@ -54,32 +55,78 @@ module.exports = class Amenaget extends Venom  {
                 this.hinVandak = 5;
             }
 
-                matrix[y][x] = this.index;
-            
+            matrix[y][x] = this.index;
 
-            // if (this.multiply >= 8 && newCell) {
-            //     var newEater = new GrassEater(newCell[0], newCell[1], this.index);
-            //     EaterArr.push(newEater);
-            //     matrix[newCell[1]][newCell[0]] = this.index;
-            //     this.multiply = 0;
-            // }
-            this.x = x;
-            this.y = y;
-            // console.log(newCell,this.move);
-
-            this.too ++;
-            if (this.too > 250) {
-                this.die();
+            for (var i in this.directions) {
+                var x = this.directions[i][0];
+                var y = this.directions[i][1];
+                if (this.chooseCell(2, matrix)) {
+                    var GetEater = this.chooseCell(2, matrix);
+                    var x = GetEater[0];
+                    var y = GetEater[1];
+                    for (var i in EaterArr) {
+                        if (x == EaterArr[i].x && y == EaterArr[i].y) {
+                            EaterArr.splice(i, 1);
+                            var dollars = new Gold(x, y, 1);
+                            goldArr.push(dollars);
+                            break;
+                        }
+                    }
+                }
+                if (this.goCells2) {
+                    var GetGrass = this.chooseCell(1, matrix);
+                    var x = GetGrass[0];
+                    var y = GetGrass[1];
+                    for (var i in grassArr) {
+                        if (x == grassArr[i].x && y == grassArr[i].y) {
+                            grassArr.splice(i, 1);
+                            var dollars = new Gold(x, y, 1);
+                            goldArr.push(dollars);
+                            break;
+                        }
+                    }
+                }
+                if (this.chooseCell(3, matrix)) {
+                    var GetGish = this.chooseCell(3, matrix);
+                    var x = GetGish[0];
+                    var y = GetGish[1];
+                    for (var i in GishatichArr) {
+                        if (x == GishatichArr[i].x && y == GishatichArr[i].y) {
+                            GishatichArr.splice(i, 1);
+                            var dollars = new Gold(x, y, 1);
+                            goldArr.push(dollars);
+                            break;
+                        }
+                    }
+                }
             }
         }
-        for (var i in this.chooseNCell(0)) {
-            var liveTArr = this.chooseNCell(0);
-                var x = liveTArr[i][0];
-                var y = liveTArr[i][1];
-                matrix[y][x] = 6;
+
+        // if (this.multiply >= 8 && newCell) {
+        //     var newEater = new GrassEater(newCell[0], newCell[1], this.index);
+        //     EaterArr.push(newEater);
+        //     matrix[newCell[1]][newCell[0]] = this.index;
+        //     this.multiply = 0;
+        // }
+        this.x = x;
+        this.y = y;
+        // console.log(newCell,this.move);
+
+        this.too++;
+        if (this.too > 250) {
+            this.die(amenagetArr, matrix);
         }
+
+        // for (var i in this.chooseNCell(0, matrix)) {
+            var liveTArr = this.chooseNCell(0, matrix);
+            var x = liveTArr[i][0];
+            var y = liveTArr[i][1];
+            matrix[y][x] = 6;
+            
+        //}
+
     }
-    die() {
+    die(amenagetArr, matrix) {
         var amenagetArr = []; // Nicolas Flamel (philosopher's stone)
         for (var i in amenagetArr) {
             if (this.x == amenagetArr[i].x && this.y == amenagetArr[i].y) {
@@ -128,7 +175,7 @@ module.exports = class Amenaget extends Venom  {
 //     move() {
 //         var cords = this.chooseCell(0);
 //         var cords2 = cords.concat(this.chooseCell(1));
-//         var cord = random(cords2);
+//         var cord = this.random(cords2);
 
 //         for (var i in this.directions) {   ///////////////////////////////////////////
 //             var x = this.directions[i][0];

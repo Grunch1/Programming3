@@ -15,8 +15,7 @@ module.exports = class Venom {
        ];
  
     }
-    chooseCell(character) {
-        this.getNewCoordinates();
+    chooseCell(character, matrix) {
         var found = [];
         for (var i in this.directions) {
             var x = this.directions[i][0];
@@ -29,7 +28,12 @@ module.exports = class Venom {
         }
         return found;
     }
-    // chooseCell(character) {
+
+    random(Arr){
+        var Item = Arr[Math.floor(Math.random() * Arr.length)];
+        return Item;
+    }
+    // chooseCell(character, matrix) {
     //     var found = [];
     //     for (var i in this.directions) {
     //         var x = this.directions[i][0];

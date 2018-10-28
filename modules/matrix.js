@@ -11,6 +11,7 @@ var matrix = matrixcreator(62, 62);
 // matrix[16][19] = 4;
 
 matrix[52][56] = 5;
+matrix[36][42] = 9;
 
 matrix[3][12] = 7;
 matrix[3][13] = 8;

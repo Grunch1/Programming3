@@ -2,18 +2,17 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+var fs = require('fs');
 
 
 var matrix = require('./modules/matrix');
-var Amenaget = require('./modules/class.Amenaget.js');
-var Gishadich = require('./modules/class.Gishadich.js');
-var God = require('./modules/class.God.js');
-var Gold = require('./modules/class.Gold.js');
-var Grass = require('./modules/class.grass.js');
-var GrassEater = require('./modules/class.GrassEater.js');
-var Event = require('./modules/Event.js');
-//var Venom = require('./modules/Parent.js');
+var Amenaget = require('./modules/class.Amenaget');
+var Gishadich = require('./modules/class.Gishadich');
+var God = require('./modules/class.God');
+var Gold = require('./modules/class.God');
+var Grass = require('./modules/class.grass');
+var GrassEater = require('./modules/class.GrassEater');
+var Event = require('./modules/Event');
 
 var grassArr = [];
 var EaterArr = [];
@@ -21,9 +20,10 @@ var GishatichArr = [];
 var quickSandArr = [];
 var amenagetArr = []; // Nicolas Flamel (phil's stone)
 var goldArr = [];
-var floresiensisArr = [];
 var godArr = [];
 var eventArr = [];
+var stats;
+var goldQuantity;
 
 for (var y = 0; y < matrix.length; ++y) {
   for (var x = 0; x < matrix[y].length; ++x) {
@@ -51,10 +51,7 @@ for (var y = 0; y < matrix.length; ++y) {
       var gd = new Gold(x, y, 6);
       goldArr.push(gd);
     }
-    else if (matrix[y][x] == 7) {
-      var fls = new Gold(x, y, 7);
-      floresiensisArr.push(fls);
-    }
+  
     else if (matrix[y][x] == 8) {
       var God = new Gold(x, y, 8);
       godArr.push(God);
@@ -63,6 +60,7 @@ for (var y = 0; y < matrix.length; ++y) {
       var evnt = new Event(x, y, 9);
       eventArr.push(evnt);
     }
+
   }
 }
 
@@ -77,42 +75,87 @@ server.listen(3000);
 var frameRate = 5;
 var drawTime = 1000 / frameRate;
 var frameCount = 0;
-var seconds = 0;
-var season = 0;
+var seconds;
+var season;
 
 io.on('connection', function (socket) {
   socket.emit('get matrix', matrix);
 
-  socket.emit("get season", season);
-
   var interval = setInterval(function () {
+    
     frameCount++;
-    seconds = 5 * frameCount;
+    if(frameCount >= 30){
+        stats = {                               /////
+
+          "Grass": grassArr.length,
+          "GrassEater": EaterArr.length,
+          "Predator": GishatichArr.length,
+          "Gold": goldArr.length,
+          "Nicolas Flamel": amenagetArr.length,
+          "Booms": eventArr.length,
+          "Rocks": "36",
+          "God": goldQuantity
+
+        };
+        socket.emit('stats', stats);
+        main(stats); // goes to json
+      }
+
+    for (var i in grassArr) {
+      grassArr[i].mul(grassArr, matrix);
+    }
+    for (var i in EaterArr) {
+      EaterArr[i].eat(EaterArr, grassArr, matrix);
+    }
+    for (var i in GishatichArr) {
+      GishatichArr[i].eat(GishatichArr, EaterArr, matrix);
+    }
+    for (var i in amenagetArr) {
+      amenagetArr[i].move(grassArr, EaterArr, GishatichArr, amenagetArr, matrix);
+    }
+    for (var i in eventArr) {
+      eventArr[i].Kill(grassArr, EaterArr, GishatichArr, goldArr, matrix);
+    }
+    // for (var i in goldArr) {
+    //   ++goldQuantity;
+      
+    // }
+    // for (var i in goldArr) {
+    //     goldArr[i].disappear();
+    // }
+    // for (var i in godArr) {
+    //     godArr[i].move();
+    // }
+
+    seconds = frameCount / 5;
+
+    if (seconds <= 5) {
+      season = 1;
+      socket.emit("get season", season);
+    }
+    else if (seconds <= 10) {
+      season = 0;
+      socket.emit("get season", season);
+    }
+    else {
+      seconds = 0;
+      frameCount = 0;
+    }
 
     socket.emit('redraw', matrix);
+
+    
   }, drawTime);
 
   socket.on('stop drawing', function () {
     clearInterval(interval);
 
-    if (seconds <= 15) {   ////// people change, seasons also change
-      textSize(32);
-      fill(0, 102, 153);
-      text('summer', 10, 30);
-      // season = 0;
-    }
-    else if (seconds <= 30) {
-      textSize(32);
-      fill(0, 102, 153);
-      text('winter', 10, 30);
-      season = 1;
-    }
-    else {
-      seconds = 0;
-      season = 0;
-    }
+
   });
 
-
-
 });
+
+function main(stat) {
+  var file = "obj.json";
+  fs.writeFileSync(file, JSON.stringify(stat));
+}

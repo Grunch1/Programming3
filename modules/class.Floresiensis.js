@@ -5,13 +5,14 @@ module.exports = class floresiensis extends Venom {
         this.multiply = 0;
         this.hinVandak = 0;
         this.energy = 25;
+        
     }
     mul() {
         this.multiply++;
-        var newCell1 = this.chooseCell(0);
-        var newCell2 = this.chooseCell(1);
+        var newCell1 = this.chooseCell(0, matrix);
+        var newCell2 = this.chooseCell(1, matrix);
         var arrayall = newCell1.concat(newCell2);
-        var newCell = random(arrayall);
+        var newCell = this.random(arrayall);
 
         var x = newCell[0];
         var y = newCell[1];
@@ -25,7 +26,7 @@ module.exports = class floresiensis extends Venom {
 
         // console.log(newCell, this.multiply);
     }
-    chooseCell(character0) {
+    chooseCell(character0, matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.directions) {
@@ -66,11 +67,11 @@ module.exports = class floresiensis extends Venom {
         return found;
     }
     move() {
-        var goCells1 = this.chooseCell(0);
-        var goCells2 = this.chooseCell(1);
-        var goCells3 = goCells2.concat(this.chooseCell(6));
+        var goCells1 = this.chooseCell(0, matrix);
+        var goCells2 = this.chooseCell(1), matrix;
+        var goCells3 = goCells2.concat(this.chooseCell(6, matrix));
         var cords = goCells1.concat(goCells3);
-        var cord = random(cords);
+        var cord = this.random(cords);
 
         if (cord) {
             var x = cord[0];

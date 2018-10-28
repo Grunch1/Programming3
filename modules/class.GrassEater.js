@@ -9,17 +9,17 @@ module.exports = class GrassEater extends Venom {
     }
 
     
-    mul() {
+    mul(EaterArr, matrix) {
         this.multiply++;
-        var newCell1 = this.chooseCell(0);
-        var newCell2 = this.chooseCell(4);
+        var newCell1 = this.chooseCell(0, matrix);
+        var newCell2 = this.chooseCell(4, matrix);
         var arrayall = newCell1.concat(newCell2);
-        var newCell = random(arrayall);
-
+        var newCell = this.random(arrayall);
+       
         var x = newCell[0];
         var y = newCell[1];
         if (matrix[y][x] == 4) {
-            this.die();
+            this.die(EaterArr, matrix);
 
             for (var i in quickSandArr) {
                 if (x == quickSandArr[i].x && y == quickSandArr[i].y) {
@@ -41,7 +41,7 @@ module.exports = class GrassEater extends Venom {
         // console.log(newCell, this.multiply);
     }
 
-    chooseCell(character0) {
+    chooseCell(character0, matrix) {
         this.getNewCoordinates();
         var found = [];
         for (var i in this.directions) {
@@ -67,30 +67,17 @@ module.exports = class GrassEater extends Venom {
             [this.x + 1, this.y + 1]
         ];
     }
-    move() {
-        var newCell1 = this.chooseCell(0);
-        var newCell2 = this.chooseCell(4);
+    move(EaterArr, matrix) {
+        var newCell1 = this.chooseCell(0, matrix);
+        var newCell2 = this.chooseCell(4, matrix);
         var arrayall = newCell1.concat(newCell2);
-        var cord = random(arrayall);
+        var cord = this.random(arrayall);
 
         if (cord) {
             var x = cord[0];
             var y = cord[1];
 
-            if (matrix[y][x] == 4) {
-                this.die();
-
-                for (var i in quickSandArr) {
-                    if (x == quickSandArr[i].x && y == quickSandArr[i].y) {
-                        quickSandArr.energy++
-
-                        break;
-                    }
-                }
-            }
-            else {
-                matrix[y][x] = 2;
-            }
+            matrix[y][x] = 2;
             matrix[this.y][this.x] = 0;
 
             this.x = x;
@@ -98,14 +85,14 @@ module.exports = class GrassEater extends Venom {
 
             this.energy--;
             if (this.energy <= 4) {
-                this.die();
+                this.die(EaterArr, matrix);
             }
         }
 
     }
-    eat() {
-        var EatGrass = this.chooseCell(1);
-        var randEatGrass = random(EatGrass);
+    eat(EaterArr, grassArr, matrix) {
+        var EatGrass = this.chooseCell(1, matrix);
+        var randEatGrass = this.random(EatGrass);
         if (randEatGrass) {
             var x = randEatGrass[0];
             var y = randEatGrass[1];
@@ -127,16 +114,16 @@ module.exports = class GrassEater extends Venom {
             }
             //}
 
-            if (this.energy >= 7) {
-                this.mul();
+            if ( (this.ser = 1) && (this.energy >= 7) ) {
+                this.mul(EaterArr, matrix);
             }
         }
 
         else {
-            this.move();
+            this.move(EaterArr, matrix);
         }
     }
-    die() {
+    die(EaterArr, matrix) {
         for (var i in EaterArr) {
             if (this.x == EaterArr[i].x && this.y == EaterArr[i].y) {
                 EaterArr.splice(i, 1);

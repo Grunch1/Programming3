@@ -53,24 +53,7 @@
     }
 //script
     // Do
-    for (var i in grassArr) {
-        grassArr[i].mul();
-    }
-    for (var i in EaterArr) {
-        EaterArr[i].eat();
-    }
-    for (var i in GishatichArr) {
-        GishatichArr[i].eat();
-    }
-    for (var i in amenagetArr) {
-        amenagetArr[i].move();
-    }
-    // for (var i in goldArr) {
-    //     goldArr[i].disappear();
-    // }
-    // for (var i in godArr) {
-    //     godArr[i].move();
-    // }
+    
     // for (var i in floresiensisArr) {
     //     floresiensisArr[i].eat();
     // }

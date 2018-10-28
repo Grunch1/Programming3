@@ -5,35 +5,25 @@ module.exports = class Gishadich extends Venom {
         this.multiply = 0;
         this.energy = 15;
         this.hinVandak = 0;
+        this.ser = 0;
+        if (Math.random() >= 0.5) this.ser = 1;
     }
-    mul() {
+    mul(GishatichArr, matrix) {
         this.multiply++;   //////////
-        var newCell1 = this.chooseCell(0);
-        var newCell2 = this.chooseCell(4);
+        var newCell1 = this.chooseCell(0, matrix);
+        var newCell2 = this.chooseCell(1, matrix);
         var arrayall = newCell1.concat(newCell2);
-        var newCell = random(arrayall);
-
+        var newCell = this.random(arrayall);
+        // console.log(newCell);
         var x = newCell[0];
         var y = newCell[1];
-        if (matrix[y][x] == 4) {
-            this.die();
-
-            for (var i in quickSandArr) {
-                if (x == quickSandArr[i].x && y == quickSandArr[i].y) {
-                    quickSandArr.energy += 5;
-                    break;
-                }
-            }
+        if (this.multiply >= 5 && newCell) {
+            var newGishadich = new Gishadich(newCell[0], newCell[1], this.index);
+            GishatichArr.push(newGishadich);
+            matrix[newCell[1]][newCell[0]] = this.index;
+            this.multiply = 0;
+            // console.log(newCell, this.multiply);
         }
-        else {
-            if (this.multiply >= 5 && newCell) {
-                var newGishadich = new Gishadich(newCell[0], newCell[1], this.index);
-                GishatichArr.push(newGishadich);
-                matrix[newCell[1]][newCell[0]] = this.index;
-                this.multiply = 0;
-            }
-        }
-        // console.log(newCell, this.multiply);
     }
 
     getNewCoordinates() {
@@ -48,11 +38,11 @@ module.exports = class Gishadich extends Venom {
             [this.x + 1, this.y + 1]
         ];
     }
-    move() {
-        var goCells1 = this.chooseCell(0);
-        var goCells2 = this.chooseCell(1);
+    move(GishatichArr, matrix) {
+        var goCells1 = this.chooseCell(0, matrix);
+        var goCells2 = this.chooseCell(1, matrix);
         var cords = goCells1.concat(goCells2);
-        var cord = random(cords);
+        var cord = this.random(cords);
 
         if (cord) {
             var x = cord[0];
@@ -69,7 +59,7 @@ module.exports = class Gishadich extends Venom {
             }
 
             if (matrix[y][x] == 4) {
-                this.die();
+                this.die(GishatichArr, matrix);
                 for (var i in GishatichArr) {
                     if (x == GishatichArr[i].x && y == GishatichArr[i].y) {
                         GishatichArr.energy += 5;
@@ -93,15 +83,14 @@ module.exports = class Gishadich extends Venom {
             this.energy -= 1;
 
             if (this.energy < -8) {
-                this.die();
+                this.die(GishatichArr, matrix);
             }
             // console.log(newCell,this.move);
         }
     }
-    eat() {
-
-        var EatEater = this.chooseCell(2);
-        var randEatEater = random(EatEater);
+    eat(GishatichArr, EaterArr, matrix) {
+        var EatEater = this.chooseCell(2, matrix);
+        var randEatEater = this.random(EatEater);
         if (randEatEater) {
             var x = randEatEater[0];
             var y = randEatEater[1];
@@ -120,17 +109,17 @@ module.exports = class Gishadich extends Venom {
                 }
             }
 
-            if (this.energy >= 18) {
-                this.mul();
+            if ((this.ser = 1) && (this.energy >= 18)) {
+                this.mul(GishatichArr, matrix);
             }
         }
 
         else {
-            this.move();
+            this.move(GishatichArr, matrix);
         }
 
     }
-    die() {
+    die(GishatichArr, matrix) {
         for (var i in GishatichArr) {
             if (this.x == GishatichArr[i].x && this.y == GishatichArr[i].y) {
                 GishatichArr.splice(i, 1);
