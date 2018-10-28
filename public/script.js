@@ -1,6 +1,7 @@
 var side = 16;
 var socket;
 var matrix;
+socket.on ("season", season);
 
 function setup() 
 {
@@ -38,7 +39,9 @@ function draw()
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 1) { // grass
-                fill("green");
+                if(season == 0) fill("green");
+                else fill(0, 148, 76);
+                // fill("green");
                 rect(x * side, y * side, side, side);
             }
             else if (matrix[y][x] == 2) { // Grasseater

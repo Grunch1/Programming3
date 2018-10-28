@@ -2,17 +2,17 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+socket.emit("season", season)
 
 var matrix = require('./modules/matrix');
 var Amenaget = require('./modules/class.Amenaget.js');
-var floresiensis = require('./modules/class.Floresiensis.js');
 var Gishadich = require('./modules/class.Gishadich.js');
 var God = require('./modules/class.God.js');
 var Gold = require('./modules/class.Gold.js');
 var Grass = require('./modules/class.grass.js');
 var GrassEater = require('./modules/class.GrassEater.js');
 var Event = require('./modules/Event.js');
-var Venom = require('./modules/Parent.js');
+//var Venom = require('./modules/Parent.js');
 
 var grassArr = [];
 var EaterArr = [];

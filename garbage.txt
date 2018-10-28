@@ -109,18 +109,3 @@ if (seconds <=15){   //////// people change, seasons also change
 
 //script
 // Drawing ))
-  
-
-    // function cl(m,n) {
-//     var s = console.log(m,n);
-//     return s
-// }
-// cl()
-// cl(2, " had");
-
-if (matrix[y][x] == 1) { // grass
-                if(season == 0) fill("green");
-                else fill(0, 148, 76);
-
-                rect(x * side, y * side, side, side);
-            }
