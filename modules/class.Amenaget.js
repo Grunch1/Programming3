@@ -44,16 +44,16 @@ module.exports = class Amenaget extends Venom {
         if (cord) {
             var x = cord[0];
             var y = cord[1];
-            matrix[this.y][this.x] = this.hinVandak;
-            if (matrix[y][x] == 0) {
-                this.hinVandak = 0;
-            } else if (matrix[y][x] == 1) {
-                this.hinVandak = 1;
-            } else if (matrix[y][x] == 4) {
-                this.hinVandak = 4;
-            } else if (matrix[y][x] == 5) {
-                this.hinVandak = 5;
-            }
+            // matrix[this.y][this.x] = this.hinVandak;
+            // if (matrix[y][x] == 0) {
+            //     this.hinVandak = 0;
+            // } else if (matrix[y][x] == 1) {
+            //     this.hinVandak = 1;
+            // } else if (matrix[y][x] == 4) {
+            //     this.hinVandak = 4;
+            // } else if (matrix[y][x] == 5) {
+            //     this.hinVandak = 5;
+            // }
 
             matrix[y][x] = this.index;
 
@@ -117,13 +117,16 @@ module.exports = class Amenaget extends Venom {
             this.die(amenagetArr, matrix);
         }
 
+        // var jojo = this.chooseNCell(0, matrix)           //
         // for (var i in this.chooseNCell(0, matrix)) {
-            var liveTArr = this.chooseNCell(0, matrix);
-            var x = liveTArr[i][0];
-            var y = liveTArr[i][1];
-            matrix[y][x] = 6;
-            
-        //}
+
+        //     var liveTArr = jojo[i];
+        //     var x = liveTArr[i][0];
+        //     var y = liveTArr[i][1];
+        //     matrix[y][x] = 6;
+        //     goldArr.push(dollars);
+
+        // }
 
     }
     die(amenagetArr, matrix) {
