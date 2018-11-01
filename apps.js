@@ -102,7 +102,7 @@ app.get('/', function (req, res) {
 
 server.listen(3000);
 
-var framerate = 5;
+var framerate = 1;
 
 var drawTime = 1000 / framerate;
 

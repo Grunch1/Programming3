@@ -9,6 +9,7 @@ var matrix = matrixcreator(62, 62);
 // matrix[16][21] = 4;
 // matrix[16][20] = 4;
 // matrix[16][19] = 4;
+matrix[61][50] = 3;
 
 matrix[52][56] = 5;
 matrix[36][42] = 9;
@@ -70,10 +71,10 @@ function matrixcreator(m, n) {
                 dude[y][x] = 3;
                 // console.log(ind);
             }
-            if(x == m && y == n){ ///////////////////////////////////////
+            if(x == m && y == n){ //////////////////////////
                 dude[m][n] = 5;
             }
-            // if(x == 15 && y == 20){ /////////////////////
+            // if(x == 15 && y == 20){ 
             //     dude[m][n] = 5;
             // }
         }

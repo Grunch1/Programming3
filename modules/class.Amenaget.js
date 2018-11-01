@@ -100,6 +100,8 @@ module.exports = class Amenaget extends Venom {
                     }
                 }
             }
+            this.x = x;
+            this.y = y;
         }
 
         // if (this.multiply >= 8 && newCell) {
@@ -108,14 +110,13 @@ module.exports = class Amenaget extends Venom {
         //     matrix[newCell[1]][newCell[0]] = this.index;
         //     this.multiply = 0;
         // }
-        this.x = x;
-        this.y = y;
+
         // console.log(newCell,this.move);
 
         this.too++;
-        if (this.too > 250) {
-            this.die(amenagetArr, matrix);
-        }
+        // if (this.too > 250) {                                                // die
+        //     this.die(amenagetArr, matrix);
+        // }
 
         // var jojo = this.chooseNCell(0, matrix)           //
         // for (var i in this.chooseNCell(0, matrix)) {
